@@ -1,0 +1,30 @@
+.banner {
+  background-color: #9447ff;
+  color: #fff;
+  text-align: center;
+}
+.banner__body {
+  margin: 0 auto 2.4rem auto;
+  padding: 2.4rem 0;
+}
+
+.banner__small {
+  font-size: 1.2rem;
+  color: #fff;
+  line-height: 1.6rem;
+  font-weight: 400;
+}
+
+.banner__medium {
+  font-size: 2.8rem;
+  color: #fff;
+  line-height: 3.6rem;
+  font-weight: 600;
+}
+
+.banner__big {
+  font-size: 4.8rem;
+  color: #fff;
+  line-height: 4.8rem;
+  font-weight: 900;
+}

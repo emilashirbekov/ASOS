@@ -1,0 +1,8 @@
+.card {
+  width: 30rem;
+
+  flex-grow: 1;
+  flex-basis: 21rem;
+
+  text-align: center;
+}

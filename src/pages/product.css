@@ -1,0 +1,7 @@
+.card__body {
+  margin: 0 auto 4.8rem auto;
+  padding: 0 3.2rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3rem;
+}
