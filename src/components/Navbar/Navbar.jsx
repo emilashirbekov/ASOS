@@ -180,16 +180,7 @@ export default function PrimarySearchAppBar() {
               alt="asos logo"
             />
           </Typography>
-          <Typography
-            variant="h6"
-            sx={{ display: { xs: "none", sm: "block" } }}
-          >
-            <img
-              src={logo}
-              style={{ filter: "invert(100%)" }}
-              alt="asos logo"
-            />
-          </Typography>
+
           <Search>
             <SearchIconWrapper>
               <SearchIcon />
