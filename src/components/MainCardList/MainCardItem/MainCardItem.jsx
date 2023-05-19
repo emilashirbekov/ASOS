@@ -1,14 +1,13 @@
 import * as React from "react";
 import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import "./MainCardItem.css";
 
-export default function MainCardItem({ image, title, subtitle }) {
+export default function MainCardItem({ image, title, subtitle, onClick }) {
   return (
-    <Card className="card">
+    <Card className="card" sx={{ cursor: "pointer" }} onClick={onClick}>
       <CardMedia component="img" alt="Clothes" image={image} />
       <CardContent>
         <Typography

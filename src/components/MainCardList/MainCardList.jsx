@@ -1,9 +1,15 @@
-import React from "react";
 import MainCardItem from "./MainCardItem/MainCardItem";
 import "./MainCardList.css";
+import { useNavigate } from "react-router-dom";
 
 const MainCardList = (props) => {
   const { image, title, subtitle } = props;
+
+  const navigate = useNavigate();
+
+  const navigateTo = () => {
+    navigate("../../pages/DroppedPage/DroppedPage.jsx");
+  };
 
   return (
     <div className="card-list">
@@ -14,6 +20,7 @@ const MainCardList = (props) => {
           }
           title={"JUST DROPPED"}
           subtitle={"Head it here first"}
+          onClick={() => navigateTo()}
         />
         <MainCardItem
           image={
