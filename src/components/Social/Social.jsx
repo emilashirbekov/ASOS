@@ -9,7 +9,7 @@ import styles from "./Social.Module.css";
 
 const Social = () => {
   return (
-    <div className={styles.social}>
+    <div className="social">
       <FacebookRounded
         sx={{
           width: "3rem",
