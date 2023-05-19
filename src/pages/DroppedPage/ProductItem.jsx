@@ -2,7 +2,7 @@ import { Card, CardContent, CardMedia, Typography } from "@mui/material";
 import React from "react";
 
 const ProductItem = ({ item }) => {
-  const { title, description, image } = item;
+  const { title, description, image, price } = item;
 
   return (
     <div>
@@ -23,6 +23,13 @@ const ProductItem = ({ item }) => {
             color="text.secondary"
           >
             {description}
+          </Typography>
+          <Typography
+            sx={{ fontSize: "1.4rem", fontWeight: "700" }}
+            variant="body2"
+            color="text.secondary"
+          >
+            {price}
           </Typography>
         </CardContent>
       </Card>
