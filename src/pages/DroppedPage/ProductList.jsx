@@ -25,13 +25,7 @@ const ProductList = () => {
         gap={"6rem"}
       >
         {products.map((product) => (
-          <Grid
-            key={product.id}
-            display={"flex"}
-            justifyContent={"center"}
-            item
-            className="card__body"
-          >
+          <Grid key={product.id} item className="card__body">
             <ProductItem item={product} />
           </Grid>
         ))}

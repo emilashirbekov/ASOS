@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useReducer } from "react";
 import { ACTIONS } from "../helpers/const";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, deleteDoc, doc, getDocs } from "firebase/firestore";
 import { db } from "../firebase";
 
 const productContext = createContext();
@@ -25,6 +25,7 @@ const ProductContextProvider = ({ children }) => {
 
   const productsCollectionRef = collection(db, "prosucts");
 
+  // !Get products //
   const getProducts = async () => {
     try {
       const data = await getDocs(productsCollectionRef);
@@ -41,9 +42,20 @@ const ProductContextProvider = ({ children }) => {
     }
   };
 
+  // !Delete products //
+  const deleteProduct = async (id) => {
+    try {
+      await deleteDoc(doc(productsCollectionRef, id));
+      getProducts();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   let values = {
     products: state.products,
     getProducts,
+    deleteProduct,
   };
 
   return (
