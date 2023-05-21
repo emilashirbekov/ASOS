@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useReducer } from "react";
 import { ACTIONS } from "../helpers/const";
 import {
+  addDoc,
   collection,
   deleteDoc,
   doc,
@@ -90,9 +91,19 @@ const ProductContextProvider = ({ children }) => {
     }
   };
 
+  const addProduct = async (productData) => {
+    try {
+      const docRef = await addDoc(productsCollectionRef, productData);
+      return docRef;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   let values = {
     products: state.products,
     oneProduct: state.oneProduct,
+    addProduct,
     getProducts,
     deleteProduct,
     getOneProduct,
