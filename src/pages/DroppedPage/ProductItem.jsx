@@ -11,10 +11,18 @@ import React from "react";
 import "./ProductItem.css";
 import { Delete, Edit } from "@mui/icons-material";
 import { useProduct } from "../../contexts/ProductContextProvider";
+import { useNavigate } from "react-router-dom";
 
 const ProductItem = ({ item }) => {
   const { title, description, image, price, id } = item;
+  const navigate = useNavigate();
+
   const { deleteProduct } = useProduct();
+
+  const handleEditClick = () => {
+    navigate(`/edit/${id}`);
+  };
+
   return (
     <div>
       <Card className="card">
@@ -52,7 +60,11 @@ const ProductItem = ({ item }) => {
           >
             {price}
           </Typography>
-          <IconButton aria-label="Add to cart" className="cart-icon">
+          <IconButton
+            aria-label="Add to cart"
+            className="cart-icon"
+            onClick={handleEditClick}
+          >
             <Edit sx={{ fontSize: 20 }} />
           </IconButton>
           <IconButton
