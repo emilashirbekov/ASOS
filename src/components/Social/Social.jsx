@@ -31,6 +31,7 @@ const Social = () => {
           color: "lightblue",
         }}
       />
+      <h1 style={{ fontWeight: "normal" }}>|</h1>
       <img src={visa} style={{ height: "2rem", width: "3rem" }} alt="visa" />
       <img src={paypal} style={{ height: "2rem", width: "3rem" }} alt="visa" />
       <img src={express} style={{ height: "2rem", width: "3rem" }} alt="visa" />

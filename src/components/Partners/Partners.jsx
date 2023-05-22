@@ -5,13 +5,12 @@ import adidas from "../../assets/images/adidas.avif";
 import carhartt from "../../assets/images/carhartt.avif";
 import ellesse from "../../assets/images/ellesse.avif";
 import martens from "../../assets/images/martens.avif";
-import styles from "./Partners.Module.css";
-
+import "./Partners.css";
 const Partners = () => {
   return (
-    <div style={{ textAlign: "center" }}>
+    <div className="partners" style={{ textAlign: "center" }}>
       <h2>TRENDING BRANDS</h2>
-      <div style={{ padding: "2rem" }}>
+      <div className="partners__body" style={{ padding: "2rem" }}>
         <a href="/tommy">
           <img
             style={{ width: "19rem", height: "19rem" }}

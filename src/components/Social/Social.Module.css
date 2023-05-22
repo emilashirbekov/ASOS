@@ -1,5 +1,12 @@
 .social {
   display: flex;
-  justify-content: center;
-  margin-bottom: 2rem;
+  justify-content: space-between;
+  max-width: 60rem;
+  margin: 1.5rem auto;
+}
+
+@media (max-width: 600px) {
+  .social {
+    display: none;
+  }
 }

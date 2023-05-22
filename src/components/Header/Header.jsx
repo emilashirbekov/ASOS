@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./Header.module.css";
+import "./Header.module.css";
 
 const Header = () => {
   return (
@@ -7,13 +8,19 @@ const Header = () => {
       <div className={styles.body}>
         <ul className={styles.list}>
           <li className={styles.list__item}>
-            <a href="#">Marketplace</a>
+            <a style={{ textDecoration: "none" }} href="/marketplace">
+              Marketplace
+            </a>
           </li>
           <li className={styles.list__item}>
-            <a href="#">Help & FAQ</a>
+            <a style={{ textDecoration: "none" }} href="/help">
+              Help & FAQ
+            </a>
           </li>
           <li className={styles.list__item}>
-            <a href="#">Modal</a>
+            <a style={{ textDecoration: "none" }} href="/modal">
+              You are in Kyrgyzstan
+            </a>
           </li>
         </ul>
       </div>

@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useReducer } from "react";
-import { ACTIONS } from "../helpers/const";
+import { ACTIONS, LIMIT } from "../helpers/const";
 import {
   addDoc,
   collection,
@@ -18,6 +18,7 @@ export const useProduct = () => useContext(productContext);
 const INIT_STATE = {
   products: [],
   oneProduct: null,
+  pageTotalCount: 1,
 };
 
 const reducer = (state = INIT_STATE, action) => {
@@ -26,6 +27,8 @@ const reducer = (state = INIT_STATE, action) => {
       return { ...state, products: action.payload };
     case ACTIONS.oneProduct:
       return { ...state, oneProduct: action.payload };
+    case ACTIONS.pageTotalCount:
+      return { ...state, pageTotalCount: action.payload };
     default:
       return state;
   }
@@ -39,14 +42,23 @@ const ProductContextProvider = ({ children }) => {
   // !Get products //
   const getProducts = async () => {
     try {
-      const data = await getDocs(productsCollectionRef);
-      const filteredData = data.docs.map((doc) => ({
+      const querySnapshot = await getDocs(productsCollectionRef);
+      const totalDocuments = querySnapshot.size;
+      const totalPages = Math.ceil(totalDocuments / LIMIT);
+
+      const filteredData = querySnapshot.docs.map((doc) => ({
         ...doc.data(),
         id: doc.id,
       }));
+
       dispatch({
         type: ACTIONS.products,
         payload: filteredData,
+      });
+
+      dispatch({
+        type: ACTIONS.pageTotalCount,
+        payload: totalPages,
       });
     } catch (error) {
       console.log(error);
@@ -108,6 +120,7 @@ const ProductContextProvider = ({ children }) => {
     deleteProduct,
     getOneProduct,
     editProduct,
+    pageTotalCount: state.pageTotalCount,
   };
 
   return (

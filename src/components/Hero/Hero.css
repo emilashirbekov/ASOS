@@ -5,11 +5,14 @@
 
 .image__text {
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 17rem;
+  left: -35rem;
   right: 0;
   width: 100%;
   text-align: center;
-  background-color: rgba(0, 0, 0, 0.5);
+}
+
+h2 {
   color: #fff;
+  font-size: 6rem;
 }

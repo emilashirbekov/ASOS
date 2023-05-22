@@ -1,6 +1,6 @@
 import React from "react";
 import summer from "../../assets/images/summer.webp";
-import "./Hero.Module.css";
+import "./Hero.css";
 
 const Hero = () => {
   return (
@@ -12,7 +12,7 @@ const Hero = () => {
         alt="Summer clothes"
       />
       <div className="image__text">
-        <p>Shop summer</p>
+        <h2>Shop summer</h2>
       </div>
     </div>
   );

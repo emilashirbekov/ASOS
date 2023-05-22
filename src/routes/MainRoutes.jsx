@@ -6,6 +6,8 @@ import Favourites from "../pages/FavouritesPages/Favourites";
 import EditCardPage from "../pages/EditCardPage/EditCardPage";
 import HomePage from "../pages/HomePage";
 import AddProductPage from "../pages/AddProductPage/AddproductPage";
+import BagPage from "../pages/BagPage/BagPage";
+import AuthPage from "../pages/AuthPage/AuthPage";
 
 const MainRoutes = () => {
   return (
@@ -14,9 +16,11 @@ const MainRoutes = () => {
         <Route element={<MainLayout />}>
           <Route path="/" element={<HomePage />} />
           <Route path="/dropped" element={<DroppedPage />} />
-          <Route path="/fav" element={<Favourites />} />
+          <Route path="/auth" element={<AuthPage />} />
           <Route path="/add" element={<AddProductPage />} />
           <Route path="/edit/:id" element={<EditCardPage />} />
+          <Route path="/fav" element={<Favourites />} />
+          <Route path="/bag" element={<BagPage />} />
         </Route>
       </Routes>
     </div>

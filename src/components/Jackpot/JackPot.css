@@ -1,0 +1,34 @@
+.bannerj {
+  background-color: #9cf0e0;
+  text-align: center;
+  color: #111;
+  font-weight: bolder;
+}
+.banner__bodyj {
+  margin: 0 auto 2.4rem auto;
+  padding: 3rem 0;
+  cursor: pointer;
+}
+.banner__bodyj * {
+  margin-bottom: 2.5rem;
+}
+
+.banner__smallj {
+  font-size: 1.2rem;
+  line-height: 1.6rem;
+}
+
+.banner__mediumj {
+  font-size: 2.8rem;
+  line-height: 3.6rem;
+}
+
+.banner__mediumj span {
+  padding: 1rem;
+  border: 1px solid #000;
+}
+
+.banner__bigj {
+  font-size: 4.8rem;
+  line-height: 4.8rem;
+}

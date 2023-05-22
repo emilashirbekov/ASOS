@@ -1,6 +1,6 @@
 .card {
   width: 30rem;
-
+  height: auto;
   flex-grow: 1;
   flex-basis: 21rem;
 
