@@ -32,6 +32,7 @@ export const filterProduct = (products, category, style, color, search) => {
       return (
         product.title.toLowerCase().includes(search.toLowerCase()) &&
         (category === "all" || product.category === category) &&
+        (color === "all" || product.color === color) &&
         (style === "all" || product.style === style)
       );
     } else if (search === "") {

@@ -17,6 +17,7 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import logo from "../../assets/icons/logo.svg";
 import { Link, useNavigate } from "react-router-dom";
 import { Badge } from "@mui/material";
+import { useAuth } from "../../contexts/AuthContextProvider";
 
 const pages = ["WOMEN", "MEN"];
 const settings = ["Favorites", "Cart", "Profile", "Logout"];
@@ -25,6 +26,7 @@ function Navbar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [activeButton, setActiveButton] = React.useState("");
+  const { user, logout } = useAuth();
 
   const handleCloseNavMenu = (page) => {
     setActiveButton(page);
@@ -145,11 +147,17 @@ function Navbar() {
                 </Badge>
               </IconButton>
             </Tooltip>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-              </IconButton>
-            </Tooltip>
+            {user ? (
+              <Tooltip title="Open settings">
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <Avatar alt={user.displayName} src={user.photoURL} />
+                </IconButton>
+              </Tooltip>
+            ) : (
+              <Button component={Link} to={"/auth"} color="inherit">
+                move to Login
+              </Button>
+            )}
             <Menu
               sx={{ mt: "45px" }}
               id="menu-appbar"
@@ -167,7 +175,15 @@ function Navbar() {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                <MenuItem
+                  key={setting}
+                  onClick={(e) => {
+                    handleCloseUserMenu(e);
+                    if (setting == "Logout") {
+                      logout();
+                    }
+                  }}
+                >
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
               ))}

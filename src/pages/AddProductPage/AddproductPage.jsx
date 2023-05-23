@@ -9,7 +9,7 @@ import {
 import React, { useState } from "react";
 import { useProduct } from "../../contexts/ProductContextProvider";
 import { useNavigate } from "react-router-dom";
-import { notify, notifyAlert, notifyError } from "../../components/Taostify";
+import { notify, notifyAlert, notifyError } from "../../components/Toastify";
 
 const AddProductPage = () => {
   const { addProduct } = useProduct();

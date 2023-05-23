@@ -33,6 +33,10 @@ const ProductList = () => {
   const [color, setColor] = useState(searchParams.get("color") || "all");
   const [style, setStyle] = useState(searchParams.get("style") || "all");
 
+  const handlePageChange = (event, newPage) => {
+    setPage(newPage);
+  };
+
   useEffect(() => {
     if (category === "all" || color === "all" || style === "all") {
       setSearchParams({
@@ -108,7 +112,7 @@ const ProductList = () => {
 
         <Box
           sx={{
-            maxWidth: "140rem",
+            maxWidth: "100rem",
             margin: "2rem auto",
             display: "flex",
             gap: "3rem",
@@ -199,15 +203,15 @@ const ProductList = () => {
                   justifyContent={"center"}
                   gap={"6rem"}
                 >
-                  {filterProduct(products, category, style, color, search).map(
-                    (product) => {
+                  {filterProduct(products, category, style, color, search)
+                    .slice((page - 1) * LIMIT, page * LIMIT)
+                    .map((product) => {
                       return isAlreadyThings(product.id) ? null : (
                         <Grid key={product.id} item className="card__body">
                           <ProductItem item={product} />
                         </Grid>
                       );
-                    }
-                  )}
+                    })}
                 </Grid>
               ) : (
                 <h1>No items found.</h1>
@@ -228,7 +232,7 @@ const ProductList = () => {
         <Pagination
           count={pageTotalCount}
           page={page}
-          onChange={(e, p) => setPage(p)}
+          onChange={handlePageChange}
         />
       </Box>
     </div>

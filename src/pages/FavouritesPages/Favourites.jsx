@@ -12,7 +12,7 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import { useState } from "react";
 import { useThings } from "../../contexts/BagContextProvider";
-import { notify, notifyAlert } from "../../components/Taostify";
+import { notify, notifyAlert } from "../../components/Toastify";
 import ProductionQuantityLimitsIcon from "@mui/icons-material/ProductionQuantityLimits";
 
 const ExpandMore = styled((props) => {
@@ -148,44 +148,38 @@ const Favourites = () => {
                     id={thing.id}
                     onClick={() => {
                       if (
-                        thing.id === size.id &&
-                        size.razmer.charAt(size.razmer.length - 1) !== "0"
+                        thing.id == size.id &&
+                        size.razmer.charAt(size.razmer.length - 1) != "0"
                       ) {
                         let obj = JSON.stringify(thing);
                         obj = JSON.parse(obj);
                         obj.size = rsize(
                           size.razmer.charAt(size.razmer.length - 1)
                         );
+                        console.log(obj);
                         addProductToThings(obj);
                         deleteFromCart(thing.id);
-                        notify("Товар добавлен в корзину !");
                       } else {
-                        notifyAlert("Выберите размер !");
+                        alert("Выберите размер!");
                       }
                     }}
                     sx={
-                      thing.id === size.id && lastChar !== 0
+                      thing.id == size.id && lastChar != 0
                         ? {
-                            backgroundColor: "#eee",
+                            backgroundColor: "black",
                             marginTop: "20px",
-                            color: "#000",
-                            background: "#fff",
-                            border: "3px solid #018849",
+                            color: "white",
                             width: "100%",
-                            fontWeight: "bold",
                             height: "35px",
-                            fontSize: "1.4rem",
+                            fontSize: "25px",
                           }
                         : {
                             backgroundColor: "#eee",
                             marginTop: "20px",
-                            color: "#000",
-                            background: "#fff",
-                            border: "3px solid #018849",
+                            color: "white",
                             width: "100%",
-                            fontWeight: "bold",
                             height: "35px",
-                            fontSize: "1.4rem",
+                            fontSize: "25px",
                           }
                     }
                   >
