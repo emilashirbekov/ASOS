@@ -3,6 +3,7 @@ import "./EditCardPage.css";
 import { Button, TextField } from "@mui/material";
 import { useProduct } from "../../contexts/ProductContextProvider";
 import { useNavigate, useParams } from "react-router-dom";
+import "./EditCardPage.css";
 
 const EditCardPage = () => {
   const { oneProduct, getOneProduct, editProduct } = useProduct();
@@ -55,7 +56,11 @@ const EditCardPage = () => {
       <div className="edit__body">
         <div className="edit__img">
           <img
-            style={{ width: "35rem", height: "auto" }}
+            style={{
+              maxWidth: "100%",
+              height: "auto",
+              margin: "4rem 0 4rem 0",
+            }}
             src={formValue.image}
             alt=""
           />
@@ -64,6 +69,7 @@ const EditCardPage = () => {
           onSubmit={(e) => handleSubmit(e)}
           style={{
             width: "40%",
+            margin: "4rem 0 4rem 0",
             display: "flex",
             flexDirection: "column",
             gap: "10px",

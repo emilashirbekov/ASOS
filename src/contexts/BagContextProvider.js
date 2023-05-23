@@ -67,7 +67,6 @@ const ThingsContextProvider = ({ children }) => {
     data.totalPrice = totalSumFunc(data.products);
     localStorage.setItem("Things", JSON.stringify(data));
 
-    alert("Успешно добавленно в корзину");
     getThings();
   }
 

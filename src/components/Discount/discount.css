@@ -28,3 +28,31 @@
   line-height: 4.8rem;
   font-weight: 900;
 }
+
+@media screen and (max-width: 767px) {
+  .banner__body {
+    margin: 0 auto 2rem auto;
+    padding: 2rem 0;
+  }
+
+  .banner__small {
+    font-size: 1rem;
+    color: #fff;
+    line-height: 1.4rem;
+    font-weight: 400;
+  }
+
+  .banner__medium {
+    font-size: 2.4rem;
+    color: #fff;
+    line-height: 3rem;
+    font-weight: 600;
+  }
+
+  .banner__big {
+    font-size: 4rem;
+    color: #fff;
+    line-height: 4rem;
+    font-weight: 900;
+  }
+}

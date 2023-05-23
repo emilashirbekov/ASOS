@@ -47,6 +47,9 @@ function Navbar() {
   const handleNavigateToHomePage = () => {
     navigate("/");
   };
+  const handleNavigateToMenPage = () => {
+    navigate("/dropped");
+  };
 
   return (
     <AppBar sx={{ background: "#2d2d2d" }} position="static">
@@ -106,14 +109,20 @@ function Navbar() {
             {pages.map((page) => (
               <Button
                 key={page}
-                onClick={() => handleCloseNavMenu(page)}
+                onClick={() => {
+                  if (page === "MEN") {
+                    handleNavigateToMenPage();
+                  } else {
+                    handleCloseNavMenu(page);
+                  }
+                }}
                 sx={{
                   my: 2,
                   color: "white",
                   display: "block",
                   fontSize: "1.8rem",
                   marginLeft: "2.5rem",
-                  ...(activeButton === page && { backgroundColor: "#ccc" }),
+                  ...(activeButton === page && { backgroundColor: "" }),
                 }}
               >
                 {page}
@@ -123,34 +132,16 @@ function Navbar() {
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Favorites">
-              <IconButton
-                size="large"
-                aria-label="show 4 new mails"
-                color="inherit"
-              >
-                <Badge
-                  badgeContent={0}
-                  color="error"
-                  component={Link}
-                  to="/fav"
-                >
-                  <FavoriteIcon fontSize="large" />
+              <IconButton size="large" aria-label="show 4 new mails">
+                <Badge badgeContent={0} component={Link} to="/fav">
+                  <FavoriteIcon sx={{ color: "#fff" }} fontSize="large" />
                 </Badge>
               </IconButton>
             </Tooltip>
             <Tooltip title="Cart">
-              <IconButton
-                size="large"
-                aria-label="show 17 new notifications"
-                color="inherit"
-              >
-                <Badge
-                  badgeContent={0}
-                  color="error"
-                  component={Link}
-                  to="/bag"
-                >
-                  <ShoppingCartIcon fontSize="large" />
+              <IconButton size="large" aria-label="show 17 new notifications">
+                <Badge badgeContent={0} component={Link} to="/bag">
+                  <ShoppingCartIcon sx={{ color: "#fff" }} fontSize="large" />
                 </Badge>
               </IconButton>
             </Tooltip>

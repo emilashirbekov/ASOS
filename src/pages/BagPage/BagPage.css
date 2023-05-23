@@ -1,20 +1,21 @@
-.MainContainer {
-  width: 1000px;
-  display: flex;
-  justify-content: center;
-  position: relative;
-  margin-left: 15%;
-  margin-right: 10%;
-  margin-top: 20px;
-}
 .page {
   background-color: #eee;
+  width: 100%;
+  padding: 1rem;
+}
+.MainContainer {
+  max-width: 100rem;
+  margin: 5rem auto;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  position: relative;
 }
 .MainContainer__Left {
   width: 60%;
   background-color: #eee;
   align-content: center;
-  margin-right: 30px;
+  margin-right: 3rem;
 }
 .MainContainerLefttitle {
   display: flex;

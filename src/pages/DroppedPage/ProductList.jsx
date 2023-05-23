@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useProduct } from "../../contexts/ProductContextProvider";
+
 import {
   Box,
   FormControl,
@@ -12,8 +13,11 @@ import {
 } from "@mui/material";
 import ProductItem from "./ProductItem";
 import { LIMIT } from "../../helpers/const";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, Link } from "react-router-dom";
 import { filterProduct } from "../../helpers/const";
+import { useThings } from "../../contexts/BagContextProvider";
+import { Button } from "@mui/base";
+import Loader from "../../components/Loader/Loader";
 
 const ProductList = () => {
   const { products, getProducts, pageTotalCount } = useProduct();
@@ -24,12 +28,13 @@ const ProductList = () => {
   const [category, setCategory] = useState(
     searchParams.get("category") || "all"
   );
-  useEffect(() => {
-    getProducts();
-  }, []);
+  const [loading, setLoading] = useState(true);
+  const [sort, setSort] = useState(searchParams.get("price") || "all");
+  const [color, setColor] = useState(searchParams.get("color") || "all");
+  const [style, setStyle] = useState(searchParams.get("style") || "all");
 
   useEffect(() => {
-    if (category === "all") {
+    if (category === "all" || color === "all" || style === "all") {
       setSearchParams({
         q: search,
         _page: 1,
@@ -39,11 +44,13 @@ const ProductList = () => {
       setSearchParams({
         q: search,
         category: category,
+        color: color,
+        style: style,
         _page: 1,
         _limit: LIMIT,
       });
     }
-  }, [search, category]);
+  }, [search, category, color, style]);
 
   useEffect(() => {
     if (category === "all") {
@@ -68,6 +75,9 @@ const ProductList = () => {
 
   useEffect(() => {
     getProducts();
+    setTimeout(() => {
+      setLoading(false);
+    }, 4500);
   }, []);
 
   useEffect(() => {
@@ -76,10 +86,11 @@ const ProductList = () => {
     }
   }, [pageTotalCount]);
 
+  const { isAlreadyThings } = useThings();
   return (
     <div>
-      <Box marginTop={"5rem"} marginBottom={"5rem"}>
-        <Box sx={{ textAlign: "center" }}>
+      <Box marginTop={"5rem"} marginBottom={"5rem"} sx={{}}>
+        <Box sx={{ textAlign: "center", maxWidth: "130rem", margin: "0 auto" }}>
           <h2 style={{ marginBottom: "2rem" }}>ASOS Clothes</h2>
           <p style={{ fontSize: "1.6rem", marginBottom: "2rem" }}>
             Basic T-shirt and jeans? Now we’re cooking. If you’re all about
@@ -87,7 +98,7 @@ const ProductList = () => {
             basic hoodies and joggers that’ll become your Monday-Sunday ‘drobe
           </p>
           <TextField
-            sx={{ width: "100rem" }}
+            sx={{ width: "100%" }}
             label="Search..."
             variant="outlined"
             value={search}
@@ -112,14 +123,14 @@ const ProductList = () => {
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
-              value={category}
+              value={style}
               label="Style"
-              onChange={(e) => setCategory(e.target.value)}
+              onChange={(e) => setStyle(e.target.value)}
             >
-              <MenuItem value={"all"}>Skinny</MenuItem>
-              <MenuItem value={"jeans"}>Regular</MenuItem>
-              <MenuItem value={"t-shirt"}>Oversized</MenuItem>
-              <MenuItem value={"shoes"}>Denim</MenuItem>
+              <MenuItem value={"all"}>All</MenuItem>
+              <MenuItem value={"skinny"}>Skinny</MenuItem>
+              <MenuItem value={"regular"}>Regular</MenuItem>
+              <MenuItem value={"tapered"}>Tapered</MenuItem>
             </Select>
           </FormControl>
           <FormControl sx={{ width: "20rem", marginBottom: "1rem" }}>
@@ -127,9 +138,9 @@ const ProductList = () => {
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
-              value={category}
+              value={sort}
               label="Sort"
-              onChange={(e) => setCategory(e.target.value)}
+              onChange={(e) => setSort(e.target.value)}
             >
               <MenuItem value={"all"}>All</MenuItem>
               <MenuItem value={"low"}>Price high to low</MenuItem>
@@ -142,7 +153,7 @@ const ProductList = () => {
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               value={category}
-              label="Age"
+              label="Category"
               onChange={(e) => setCategory(e.target.value)}
             >
               <MenuItem value={"all"}>All</MenuItem>
@@ -156,45 +167,15 @@ const ProductList = () => {
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
-              value={category}
-              label="Age"
-              onChange={(e) => setCategory(e.target.value)}
+              value={color}
+              label="Color"
+              onChange={(e) => setColor(e.target.value)}
             >
               <MenuItem value={"all"}>All</MenuItem>
               <MenuItem value={"black"}>Black</MenuItem>
               <MenuItem value={"pink"}>Pink</MenuItem>
               <MenuItem value={"blue"}>Blue</MenuItem>
               <MenuItem value={"rose"}>Rose</MenuItem>
-            </Select>
-          </FormControl>
-          <FormControl sx={{ width: "20rem", marginBottom: "1rem" }}>
-            <InputLabel id="demo-simple-select-label">Product type</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={category}
-              label="Product type"
-              onChange={(e) => setCategory(e.target.value)}
-            >
-              <MenuItem value={"all"}>All</MenuItem>
-              <MenuItem value={"jeans"}>Jeans</MenuItem>
-              <MenuItem value={"t-shirt"}>T-shirt</MenuItem>
-              <MenuItem value={"shoes"}>Shoes</MenuItem>
-            </Select>
-          </FormControl>
-          <FormControl sx={{ width: "20rem", marginBottom: "1rem" }}>
-            <InputLabel id="demo-simple-select-label">Category</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={category}
-              label="Age"
-              onChange={(e) => setCategory(e.target.value)}
-            >
-              <MenuItem value={"all"}>All</MenuItem>
-              <MenuItem value={"jeans"}>Jeans</MenuItem>
-              <MenuItem value={"t-shirt"}>T-shirt</MenuItem>
-              <MenuItem value={"shoes"}>Shoes</MenuItem>
             </Select>
           </FormControl>
         </Box>
@@ -205,12 +186,43 @@ const ProductList = () => {
           justifyContent={"center"}
           gap={"6rem"}
         >
-          {filterProduct(products, category, search).map((product) => (
-            <Grid key={product.id} item className="card__body">
-              <ProductItem item={product} />
-            </Grid>
-          ))}
+          {loading ? (
+            <Loader />
+          ) : (
+            <>
+              {filterProduct(products, category, style, color, search).length >
+              0 ? (
+                <Grid
+                  container
+                  spacing={2}
+                  display={"flex"}
+                  justifyContent={"center"}
+                  gap={"6rem"}
+                >
+                  {filterProduct(products, category, style, color, search).map(
+                    (product) => {
+                      return isAlreadyThings(product.id) ? null : (
+                        <Grid key={product.id} item className="card__body">
+                          <ProductItem item={product} />
+                        </Grid>
+                      );
+                    }
+                  )}
+                </Grid>
+              ) : (
+                <h1>No items found.</h1>
+              )}
+            </>
+          )}
         </Grid>
+        <Link to={"/add"}>
+          <Button
+            style={{ cursor: "pointer", marginTop: "5rem" }}
+            variant="outlined"
+          >
+            Add product
+          </Button>
+        </Link>
       </Box>
       <Box sx={{ maxWidth: "max-content", margin: "30px auto" }}>
         <Pagination

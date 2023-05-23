@@ -59,7 +59,11 @@ const ProductItem = ({ item }) => {
               {title}
             </Typography>
             <Typography
-              sx={{ fontSize: "1.4rem", fontWeight: "700" }}
+              sx={{
+                fontSize: "1.4rem",
+                fontWeight: "700",
+                minHeight: "5.5rem",
+              }}
               variant="body2"
               color="text.secondary"
             >
