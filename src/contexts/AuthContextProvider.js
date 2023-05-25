@@ -1,4 +1,10 @@
-import React, { createContext, useContext, useEffect, useReducer } from "react";
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useReducer,
+  useState,
+} from "react";
 import { ACTIONS } from "../helpers/const";
 import { auth } from "../firebase";
 import {
@@ -37,22 +43,22 @@ const AuthContextProvider = ({ children }) => {
         photoURL,
       });
     } catch (error) {
-      alert("error");
+      console.log(error);
     }
   }
 
   async function LOGIN({ email, password }) {
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      alert("успех");
     } catch (error) {
-      alert("error");
+      console.log(error);
     }
   }
 
   async function logout() {
     try {
       await signOut(auth);
+      localStorage.removeItem("userobj");
     } catch (error) {
       console.log(error);
     }
@@ -60,7 +66,6 @@ const AuthContextProvider = ({ children }) => {
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
-      console.log(user);
       dispatch({
         type: ACTIONS.user,
         payload: user,
@@ -68,17 +73,22 @@ const AuthContextProvider = ({ children }) => {
     });
   }, []);
 
-  // function isAdmin() {
-  //   if (state.user) {
-  //     const bool = ADMINS.includes(state.user.email);
-  //     return bool;
-  //   }
-  // }
+  const [money, setMoney] = useState({ email: "", money: 0 });
+
+  function getDataLocalSt() {
+    const userObjString = localStorage.getItem("userobj");
+    if (userObjString) {
+      setMoney(JSON.parse(userObjString));
+    }
+  }
+
   let values = {
     user: state.user,
     REGISTER,
     LOGIN,
     logout,
+    getDataLocalSt,
+    money,
   };
 
   return <authContext.Provider value={values}>{children}</authContext.Provider>;

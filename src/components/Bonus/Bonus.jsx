@@ -3,6 +3,7 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
+import "./Bonus.css";
 
 const MyComponent = () => {
   return (
@@ -15,11 +16,6 @@ const MyComponent = () => {
         alignItems: "center",
         justifyContent: "space-between",
         padding: "4rem 10rem",
-        "@media (max-width: 600px)": {
-          flexDirection: "column",
-          justifyContent: "center",
-          textAlign: "center",
-        },
       }}
     >
       <Button
@@ -42,10 +38,20 @@ const MyComponent = () => {
         WOMEN
       </Button>
       <Grid sx={{ textAlign: "center" }}>
-        <Typography variant="h5" sx={{ fontWeight: "900" }} gutterBottom>
+        <Typography
+          className="type"
+          variant="h5"
+          sx={{ fontWeight: "900" }}
+          gutterBottom
+        >
           NEW HERE ? Get 15% off everything!*
         </Typography>
-        <Typography variant="h5" sx={{ fontWeight: "900" }} gutterBottom>
+        <Typography
+          className="type"
+          variant="h5"
+          sx={{ fontWeight: "900" }}
+          gutterBottom
+        >
           With code: HELLOASOS
         </Typography>
       </Grid>

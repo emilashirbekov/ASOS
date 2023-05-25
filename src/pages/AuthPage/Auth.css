@@ -1,5 +1,5 @@
 .MainContent {
-  max-width: 600px;
+  max-width: 60rem;
   display: flex;
   text-align: center;
   flex-direction: column;
@@ -7,7 +7,8 @@
   margin: auto;
 }
 .MainContent__Contain {
-  background-color: white;
+  background-color: #fff;
+  border: 3px solid black;
 }
 .MainContentContainbuttons {
   display: flex;
@@ -16,23 +17,23 @@
 .MainContentContainbuttons__child {
   width: 50%;
   border: none;
-  font-size: 20px;
+  font-size: 2rem;
   font-style: normal;
   font-weight: 1000;
-  height: 60px;
-  background-color: white;
+  height: 6rem;
+  background-color: #fff;
 }
 
 .Register {
-  width: 300px;
+  width: 30rem;
   margin: auto;
   color: grey;
   text-align: left;
 }
 .Register__input {
-  height: 40px;
-  width: 300px;
-  margin-bottom: 20px;
+  height: 4rem;
+  width: 30rem;
+  margin-bottom: 2rem;
 }
 .Register__block {
   display: flex;
@@ -44,7 +45,7 @@
 #Register__button {
   margin: auto;
   border: none;
-  margin-top: 20px;
+  margin-top: 2rem;
   width: 100%;
   height: 50px;
   margin-bottom: 20px;
@@ -64,7 +65,7 @@
   border-bottom: 2px solid black;
 }
 .SignIn {
-  width: 300px;
+  width: 30rem;
   margin: auto;
   color: grey;
   text-align: left;
@@ -72,11 +73,11 @@
 #SignIn__button {
   margin: auto;
   border: none;
-  margin-top: 20px;
+  margin-top: 2rem;
   width: 100%;
-  height: 50px;
-  margin-bottom: 30px;
-  margin-bottom: 20px;
+  height: 5rem;
+  margin-bottom: 3rem;
+  margin-bottom: 2rem;
 }
 .SignIn__span {
   font-size: small;
@@ -111,4 +112,27 @@
   color: white;
   background-color: black;
   border: 2px solid whitesmoke;
+}
+
+button {
+  cursor: pointer;
+  margin-bottom: 2rem;
+  background-color: #fff;
+}
+
+input {
+  padding-left: 1.5rem;
+}
+::-webkit-input-placeholder {
+  font-size: 1.4rem;
+}
+
+input[type="text"] {
+  font-size: 1.6rem;
+}
+input[type="email"] {
+  font-size: 1.6rem;
+}
+input[type="password"] {
+  font-size: 1.6rem;
 }

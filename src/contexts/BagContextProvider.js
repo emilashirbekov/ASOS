@@ -1,5 +1,7 @@
 import React, { createContext, useContext, useReducer } from "react";
 import { ACTIONS, calcSubPrice, totalSumFunc } from "../helpers/const";
+import axios from "axios";
+import { API } from "../helpers/const";
 
 const ThingsContext = createContext();
 
@@ -67,7 +69,6 @@ const ThingsContextProvider = ({ children }) => {
     data.totalPrice = totalSumFunc(data.products);
     localStorage.setItem("Things", JSON.stringify(data));
 
-    alert("Успешно добавленно в корзину");
     getThings();
   }
 
@@ -98,6 +99,11 @@ const ThingsContextProvider = ({ children }) => {
     const isInThings = data.products.some((item) => item.id === id);
     return isInThings;
   }
+
+  async function addBankInfo(userInfo) {
+    await axios.post(API, userInfo);
+  }
+
   const values = {
     Things: state.Things,
     ThingsLength: state.ThingsLength,
@@ -106,6 +112,7 @@ const ThingsContextProvider = ({ children }) => {
     changeProductCount,
     deleteFromThings,
     isAlreadyThings,
+    addBankInfo,
   };
 
   return (

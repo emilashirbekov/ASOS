@@ -1,12 +1,37 @@
-import React, { useState } from "react";
-import "./Auth.css";
+import React, { useEffect, useState } from "react";
 import { useAuth } from "../../contexts/AuthContextProvider";
+import { useNavigate } from "react-router-dom";
+import { notify, notifyAlert, notifyError } from "../../components/Toastify";
+import axios from "axios";
+import "./Auth.css";
+import { useThings } from "../../contexts/BagContextProvider";
+import { API } from "../../helpers/const";
+
 const Auth = () => {
   const [state, setState] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastNAme] = useState("");
+  const [bank, setBank] = useState();
+
+  async function getDataFromServer() {
+    try {
+      const response = await axios.get(API);
+      const res = response.data;
+      setBank(res);
+    } catch (error) {
+      notifyError(error);
+    }
+  }
+
+  useEffect(() => {
+    getDataFromServer();
+  }, []);
+
+  const { addBankInfo } = useThings();
+
+  const navigate = useNavigate();
 
   const { REGISTER, LOGIN } = useAuth();
   const handleSubmit = (event) => {
@@ -20,13 +45,45 @@ const Auth = () => {
     };
     if (state) {
       REGISTER(user);
+      let userObj = {
+        email: email,
+        money: Math.round(Math.random() * (1000 - 100) + 100),
+      };
+      let das = true;
+      for (let i = 0; i < bank.length; i++) {
+        if (bank[i].email == userObj.email) {
+          das = false;
+        }
+      }
+      if (das) {
+        addBankInfo(userObj);
+      }
+
+      navigate("/");
+      localStorage.setItem("userobj", JSON.stringify(userObj));
     } else {
       LOGIN(user);
+      let userObj = {
+        email: email,
+        money: Math.round(Math.random() * (1000 - 100) + 100),
+      };
+      let das = true;
+      for (let i = 0; i < bank.length; i++) {
+        if (bank[i].email == userObj.email) {
+          das = false;
+        }
+      }
+      if (das) {
+        addBankInfo(userObj);
+      }
+
+      navigate("/");
+      localStorage.setItem("userobj", JSON.stringify(userObj));
     }
   };
   const register = () => {
     return (
-      <div>
+      <div className="main">
         <h3 className="SignIn__title">OR SIGN UP WITH...</h3>
         <div className="SignIn__groupLink">
           <button className="SignIngroupLinkitems">
@@ -54,13 +111,23 @@ const Auth = () => {
             APPLE
           </button>
         </div>
-        <form action="" onSubmit={handleSubmit}>
+        <form
+          action=""
+          onSubmit={(e) => {
+            e.preventDefault();
+            if (!email || !password || !firstName || !lastName) {
+              notifyAlert("Fill the filds");
+            } else {
+              handleSubmit(e);
+            }
+          }}
+        >
           <div className="Register">
             <h4 className="Register__title">EMAIL ADDRESS :</h4>
             <div className="Register__block">
               <input
                 type="email"
-                placeholder="     expamle : *@mail.en"
+                placeholder="expamle : *@mail.en"
                 className="Register__input"
                 name="email"
                 id="email"
@@ -74,7 +141,7 @@ const Auth = () => {
             <h4 className="Register__title">DISPLAY NAME :</h4>
             <input
               type="text"
-              placeholder="     Jong"
+              placeholder="Jong"
               name="displayName"
               id="displayName"
               className="Register__input"
@@ -84,7 +151,7 @@ const Auth = () => {
             <h4 className="Register__title">PHOTO URL :</h4>
             <input
               type="text"
-              placeholder="     https"
+              placeholder="https"
               className="Register__input"
               name="photoURL"
               id="photoURL"
@@ -94,7 +161,7 @@ const Auth = () => {
               <h4 className="Register__title">PASSWORD:</h4>
               <input
                 type="password"
-                placeholder="     expamle : 0123456789"
+                placeholder="expamle : 0123456789"
                 className="Register__input"
                 name="password"
                 id="password"
@@ -109,9 +176,9 @@ const Auth = () => {
               style={
                 password && email && lastName && firstName
                   ? {
-                      color: "white",
-                      backgroundColor: "black",
-                      fontSize: "20px",
+                      color: "#fff",
+                      backgroundColor: "#000",
+                      fontSize: "2rem",
                     }
                   : null
               }
@@ -126,13 +193,23 @@ const Auth = () => {
   };
   const signIn = () => {
     return (
-      <div>
+      <div className="main">
         <div className="SignIn">
-          <form action="" onSubmit={handleSubmit}>
+          <form
+            action=""
+            onSubmit={(e) => {
+              e.preventDefault();
+              if (!email || !password) {
+                notifyAlert("Fill the filds");
+              } else {
+                handleSubmit(e);
+              }
+            }}
+          >
             <h4 className="Register__title">EMAIL ADRESS :</h4>
             <input
               type="email"
-              placeholder="     expamle : *@mail.en"
+              placeholder="expamle : *@mail.en"
               className="Register__input"
               name="email"
               id="email"
@@ -143,7 +220,7 @@ const Auth = () => {
               type="password"
               name="password"
               id="password"
-              placeholder="     expamle : 0123456789"
+              placeholder="expamle : 0123456789"
               className="Register__input"
               onChange={(e) => setPassword(e.target.value)}
             />
@@ -205,7 +282,7 @@ const Auth = () => {
         <div className="MainContentContainbuttons">
           <button
             id="Join"
-            className="MainContentContainbuttons__child"
+            className="MainContentContainbuttons__child "
             onClick={() => {
               setState(true);
               setEmail("");

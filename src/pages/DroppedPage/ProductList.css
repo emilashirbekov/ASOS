@@ -1,0 +1,26 @@
+.addButton {
+  cursor: pointer;
+  margin-top: 1rem;
+  padding: 1rem 3rem;
+  font-weight: bold;
+  background: #000;
+  color: #fff;
+}
+
+.addButton:hover {
+  color: #000;
+  background: #fff;
+  transition: all 0.2s ease-in-out;
+}
+
+.formControl label {
+  font-size: 16px; /* Увеличьте размер шрифта для метки */
+}
+
+.formControl select {
+  font-size: 16px; /* Увеличьте размер шрифта для Select */
+}
+
+.formControl MenuItem {
+  font-size: 16px; /* Увеличьте размер шрифта для MenuItem */
+}

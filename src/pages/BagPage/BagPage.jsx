@@ -1,12 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import "./BagPage.css";
-import Header from "../../components/Header/Header";
-import Navbar from "../../components/Navbar/Navbar";
-import Social from "../../components/Social/Social";
-import Footer from "../../components/Footer/Footer";
 import { useThings } from "../../contexts/BagContextProvider";
 import { Button, TableCell } from "@mui/material";
-import { useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -16,8 +11,11 @@ import Typography from "@mui/material/Typography";
 import ClearIcon from "@mui/icons-material/Clear";
 import TurnedInNotIcon from "@mui/icons-material/TurnedInNot";
 import { useCart } from "../../contexts/CartContextProvider";
+import { useAuth } from "../../contexts/AuthContextProvider";
+import { notify } from "../../components/Toastify";
 
 const BagPage = () => {
+  const { getDataLocalSt, money } = useAuth();
   const { Things, getThings, changeProductCount, deleteFromThings } =
     useThings();
   const { addProductToCart } = useCart();
@@ -25,14 +23,26 @@ const BagPage = () => {
     delete obj.size;
     return obj;
   }
+  // async function getDataFromServer() {
+  //   try {
+  //     const response = await axios.get(API);
+  //     const res = response.data;
+  //     // console.log(res); // Выводим полученные данные в консоль
+  //     // Дальнейшая обработка данных...
+  //     setState(res);
+  //   } catch (error) {
+  //     console.error("Ошибка при получении данных:", error);
+  //   }
+  // }
 
   useEffect(() => {
     getThings();
+    // getDataFromServer();
+    getDataLocalSt();
   }, []);
-  const [thi, sethi] = useState(false);
-  console.log(Things.products);
 
-  const theme = useTheme();
+  console.log(money);
+
   return (
     <div className="page">
       <div
@@ -187,7 +197,7 @@ const BagPage = () => {
           className="MainContainer__Right"
           style={
             Things.products.length != 0
-              ? { position: "fixed", left: "870px" }
+              ? { position: "fixed", left: "870px", marginLeft: "2rem" }
               : null
           }
         >
@@ -201,10 +211,29 @@ const BagPage = () => {
           <div className="Title__group">
             <h3 className="Titlegrouptitle">Delivery</h3>
             <span className="Titlegroupspan">
-              ${Math.round(Things.totalPrice / 6)}
+              ${Math.round(Things.totalPrice / 6 + 0.4)}
             </span>
           </div>
+          <div className="Title__group">
+            <h3 className="Titlegrouptitle">Current money</h3>
+            <span className="Titlegroupspan">$ {Math.round(money.money)}</span>
+          </div>
+          <span className="Titlegroupspan">
+            If you have 0 money, you need login
+          </span>
           <Button
+            onClick={(e) => {
+              let userObj = { ...money };
+              userObj.money =
+                money.money -
+                Things.totalPrice -
+                Math.round(Things.totalPrice / 6 + 0.4);
+              localStorage.setItem("userobj", JSON.stringify(userObj));
+              localStorage.removeItem("Things");
+              getDataLocalSt(userObj);
+              notify("Thanks for purchase");
+              getThings();
+            }}
             sx={{
               width: "100%",
               color: "white",
@@ -213,7 +242,7 @@ const BagPage = () => {
               fontSize: "15px",
             }}
           >
-            Buy ${Math.round(Things.totalPrice / 6 + 0.4 + Things.totalPrice)}
+            Buy ${Math.round(Things.totalPrice / 6 + Things.totalPrice)}
           </Button>
         </div>
       </div>

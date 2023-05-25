@@ -12,7 +12,7 @@ const Hero = () => {
         alt="Summer clothes"
       />
       <div className="image__text">
-        <h2>Shop summer</h2>
+        <h2 className="summer">Shop summer</h2>
       </div>
     </div>
   );

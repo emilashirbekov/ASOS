@@ -112,15 +112,35 @@ const ProductContextProvider = ({ children }) => {
     }
   };
 
+  const updateRating = async (id, newRating) => {
+    try {
+      const productRef = doc(productsCollectionRef, id);
+      await updateDoc(productRef, { rating: +newRating });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const addReviews = (id, productData) => {
+    try {
+      const productRef = addDoc(productsCollectionRef, productData);
+      return productRef;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   let values = {
     products: state.products,
     oneProduct: state.oneProduct,
+    addReviews,
     addProduct,
     getProducts,
     deleteProduct,
     getOneProduct,
     editProduct,
     pageTotalCount: state.pageTotalCount,
+    updateRating,
   };
 
   return (

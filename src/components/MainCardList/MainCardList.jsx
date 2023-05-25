@@ -8,7 +8,7 @@ const MainCardList = (props) => {
   const navigate = useNavigate();
 
   const navigateTo = () => {
-    navigate("../../pages/DroppedPage/DroppedPage.jsx");
+    navigate("/dropped");
   };
 
   return (

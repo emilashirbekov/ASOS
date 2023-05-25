@@ -66,7 +66,6 @@ const CartContextProvider = ({ children }) => {
 
     data.totalPrice = totalSumFunc(data.products);
     localStorage.setItem("cart", JSON.stringify(data));
-    alert("успешно добавлено");
     getCart();
   }
 
@@ -90,7 +89,6 @@ const CartContextProvider = ({ children }) => {
     data.totalPrice = totalSumFunc(data.products);
     localStorage.setItem("cart", JSON.stringify(data));
     getCart();
-    alert("успешно удалена карточка");
   }
   function isAlreadyCart(id) {
     const data = getDataFromLS();
