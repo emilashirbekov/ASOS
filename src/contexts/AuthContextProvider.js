@@ -37,16 +37,15 @@ const AuthContextProvider = ({ children }) => {
         photoURL,
       });
     } catch (error) {
-      alert("error");
+      console.log(error);
     }
   }
 
   async function LOGIN({ email, password }) {
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      alert("успех");
     } catch (error) {
-      alert("error");
+      console.log(error);
     }
   }
 
@@ -67,12 +66,6 @@ const AuthContextProvider = ({ children }) => {
     });
   }, []);
 
-  // function isAdmin() {
-  //   if (state.user) {
-  //     const bool = ADMINS.includes(state.user.email);
-  //     return bool;
-  //   }
-  // }
   let values = {
     user: state.user,
     REGISTER,

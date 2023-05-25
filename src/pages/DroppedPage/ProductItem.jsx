@@ -15,9 +15,11 @@ import { useProduct } from "../../contexts/ProductContextProvider";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../../contexts/CartContextProvider";
 import { useThings } from "../../contexts/BagContextProvider";
+import CommentIcon from "@mui/icons-material/Comment";
+import Rating from "../../components/Rating/Rating";
 
 const ProductItem = ({ item }) => {
-  const { title, description, image, price, id } = item;
+  const { title, description, image, price, id, rating } = item;
   const navigate = useNavigate();
 
   const { deleteProduct } = useProduct();
@@ -50,6 +52,12 @@ const ProductItem = ({ item }) => {
             </div>
           </div>
           <CardContent>
+            <div
+              className="rating"
+              style={{ marginLeft: "3rem", marginBottom: "1rem" }}
+            >
+              <Rating rating={rating} id={id} />
+            </div>
             <Typography
               sx={{ fontSize: "1.8rem", fontWeight: "700" }}
               gutterBottom
@@ -89,6 +97,10 @@ const ProductItem = ({ item }) => {
               className="favorite-icon"
             >
               <Delete sx={{ fontSize: 20 }} />
+            </IconButton>
+
+            <IconButton aria-label="Add to favorites" className="favorite-icon">
+              <CommentIcon sx={{ fontSize: 20 }} />
             </IconButton>
           </CardContent>
         </Card>

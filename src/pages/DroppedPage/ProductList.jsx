@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useProduct } from "../../contexts/ProductContextProvider";
-
 import {
   Box,
   FormControl,
@@ -18,9 +17,11 @@ import { filterProduct } from "../../helpers/const";
 import { useThings } from "../../contexts/BagContextProvider";
 import { Button } from "@mui/base";
 import Loader from "../../components/Loader/Loader";
+import "./ProductList.css";
 
 const ProductList = () => {
   const { products, getProducts, pageTotalCount } = useProduct();
+  const price = products.map((product) => +product.price);
   const [searchParams, setSearchParams] = useSearchParams();
 
   const [page, setPage] = useState(1);
@@ -38,7 +39,12 @@ const ProductList = () => {
   };
 
   useEffect(() => {
-    if (category === "all" || color === "all" || style === "all") {
+    if (
+      category === "all" ||
+      color === "all" ||
+      style === "all" ||
+      sort === "all"
+    ) {
       setSearchParams({
         q: search,
         _page: 1,
@@ -50,11 +56,12 @@ const ProductList = () => {
         category: category,
         color: color,
         style: style,
+        sort: sort,
         _page: 1,
         _limit: LIMIT,
       });
     }
-  }, [search, category, color, style]);
+  }, [search, category, color, style, sort]);
 
   useEffect(() => {
     if (category === "all") {
@@ -90,6 +97,10 @@ const ProductList = () => {
     }
   }, [pageTotalCount]);
 
+  useEffect(() => {
+    getProducts();
+  }, []);
+
   const { isAlreadyThings } = useThings();
   return (
     <div>
@@ -102,7 +113,15 @@ const ProductList = () => {
             basic hoodies and joggers that’ll become your Monday-Sunday ‘drobe
           </p>
           <TextField
-            sx={{ width: "100%" }}
+            sx={{
+              width: "70%",
+              "& input": {
+                fontSize: "1.4rem",
+              },
+              "& label": {
+                fontSize: "1.4rem",
+              },
+            }}
             label="Search..."
             variant="outlined"
             value={search}
@@ -112,7 +131,7 @@ const ProductList = () => {
 
         <Box
           sx={{
-            maxWidth: "100rem",
+            maxWidth: "100%",
             margin: "2rem auto",
             display: "flex",
             gap: "3rem",
@@ -123,69 +142,133 @@ const ProductList = () => {
           }}
         >
           <FormControl sx={{ width: "20rem", marginBottom: "1rem" }}>
-            <InputLabel id="demo-simple-select-label">Style</InputLabel>
+            <InputLabel
+              sx={{ fontSize: "1.6rem" }}
+              id="demo-simple-select-label"
+            >
+              Style
+            </InputLabel>
             <Select
+              sx={{ fontSize: "1.4rem" }}
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               value={style}
               label="Style"
               onChange={(e) => setStyle(e.target.value)}
             >
-              <MenuItem value={"all"}>All</MenuItem>
-              <MenuItem value={"skinny"}>Skinny</MenuItem>
-              <MenuItem value={"regular"}>Regular</MenuItem>
-              <MenuItem value={"tapered"}>Tapered</MenuItem>
+              <MenuItem sx={{ fontSize: "1.4rem" }} value={"all"}>
+                All
+              </MenuItem>
+              <MenuItem sx={{ fontSize: "1.4rem" }} value={"skinny"}>
+                Skinny
+              </MenuItem>
+              <MenuItem sx={{ fontSize: "1.4rem" }} value={"regular"}>
+                Regular
+              </MenuItem>
+              <MenuItem sx={{ fontSize: "1.4rem" }} value={"tapered"}>
+                Tapered
+              </MenuItem>
             </Select>
           </FormControl>
+
           <FormControl sx={{ width: "20rem", marginBottom: "1rem" }}>
-            <InputLabel id="demo-simple-select-label">Sort</InputLabel>
+            <InputLabel
+              sx={{ fontSize: "1.6rem" }}
+              id="demo-simple-select-label"
+            >
+              Sort
+            </InputLabel>
             <Select
+              sx={{ fontSize: "1.4rem" }}
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               value={sort}
               label="Sort"
               onChange={(e) => setSort(e.target.value)}
             >
-              <MenuItem value={"all"}>All</MenuItem>
-              <MenuItem value={"low"}>Price high to low</MenuItem>
-              <MenuItem value={"high"}>Price low to high</MenuItem>
+              <MenuItem sx={{ fontSize: "1.4rem" }} value={"all"}>
+                All
+              </MenuItem>
+              <MenuItem sx={{ fontSize: "1.4rem" }} value={"low"}>
+                Price high to low
+              </MenuItem>
+              <MenuItem sx={{ fontSize: "1.4rem" }} value={"high"}>
+                Price low to high
+              </MenuItem>
             </Select>
           </FormControl>
-          <FormControl sx={{ width: "20rem", marginBottom: "1rem" }}>
-            <InputLabel id="demo-simple-select-label">Category</InputLabel>
+          <FormControl
+            className="formSizeIncrease"
+            sx={{ width: "20rem", marginBottom: "1rem" }}
+          >
+            <InputLabel
+              sx={{ fontSize: "1.6rem" }}
+              id="demo-simple-select-label"
+            >
+              Category
+            </InputLabel>
             <Select
+              sx={{ fontSize: "1.4rem" }}
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               value={category}
               label="Category"
               onChange={(e) => setCategory(e.target.value)}
             >
-              <MenuItem value={"all"}>All</MenuItem>
-              <MenuItem value={"jeans"}>Jeans</MenuItem>
-              <MenuItem value={"t-shirt"}>T-shirt</MenuItem>
-              <MenuItem value={"shoes"}>Shoes</MenuItem>
+              <MenuItem sx={{ fontSize: "1.4rem" }} value={"all"}>
+                All
+              </MenuItem>
+              <MenuItem sx={{ fontSize: "1.4rem" }} value={"jeans"}>
+                Jeans
+              </MenuItem>
+              <MenuItem sx={{ fontSize: "1.4rem" }} value={"t-shirt"}>
+                T-shirt
+              </MenuItem>
+              <MenuItem sx={{ fontSize: "1.4rem" }} value={"shoes"}>
+                Shoes
+              </MenuItem>
             </Select>
           </FormControl>
-          <FormControl sx={{ width: "20rem", marginBottom: "1rem" }}>
-            <InputLabel id="demo-simple-select-label">Color</InputLabel>
+          <FormControl
+            className="formSizeIncrease"
+            sx={{ width: "20rem", marginBottom: "1rem" }}
+          >
+            <InputLabel
+              sx={{ fontSize: "1.6rem" }}
+              id="demo-simple-select-label"
+            >
+              Color
+            </InputLabel>
             <Select
+              sx={{ fontSize: "1.4rem" }}
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               value={color}
               label="Color"
               onChange={(e) => setColor(e.target.value)}
             >
-              <MenuItem value={"all"}>All</MenuItem>
-              <MenuItem value={"black"}>Black</MenuItem>
-              <MenuItem value={"pink"}>Pink</MenuItem>
-              <MenuItem value={"blue"}>Blue</MenuItem>
-              <MenuItem value={"rose"}>Rose</MenuItem>
+              <MenuItem sx={{ fontSize: "1.4rem" }} value={"all"}>
+                All
+              </MenuItem>
+              <MenuItem sx={{ fontSize: "1.4rem" }} value={"black"}>
+                Black
+              </MenuItem>
+              <MenuItem sx={{ fontSize: "1.4rem" }} value={"pink"}>
+                Pink
+              </MenuItem>
+              <MenuItem sx={{ fontSize: "1.4rem" }} value={"blue"}>
+                Blue
+              </MenuItem>
+              <MenuItem sx={{ fontSize: "1.4rem" }} value={"rose"}>
+                Rose
+              </MenuItem>
             </Select>
           </FormControl>
         </Box>
         <Grid
           container
           spacing={2}
+          marginTop={"3rem"}
           display={"flex"}
           justifyContent={"center"}
           gap={"6rem"}
@@ -194,8 +277,15 @@ const ProductList = () => {
             <Loader />
           ) : (
             <>
-              {filterProduct(products, category, style, color, search).length >
-              0 ? (
+              {filterProduct(
+                products,
+                category,
+                style,
+                color,
+                search,
+                sort,
+                price
+              ).length > 0 ? (
                 <Grid
                   container
                   spacing={2}
@@ -203,7 +293,15 @@ const ProductList = () => {
                   justifyContent={"center"}
                   gap={"6rem"}
                 >
-                  {filterProduct(products, category, style, color, search)
+                  {filterProduct(
+                    products,
+                    category,
+                    style,
+                    color,
+                    search,
+                    sort,
+                    price
+                  )
                     .slice((page - 1) * LIMIT, page * LIMIT)
                     .map((product) => {
                       return isAlreadyThings(product.id) ? null : (
@@ -218,15 +316,12 @@ const ProductList = () => {
               )}
             </>
           )}
+          <Link to={"/add"}>
+            <Button className="addButton" variant="outlined">
+              Add product
+            </Button>
+          </Link>
         </Grid>
-        <Link to={"/add"}>
-          <Button
-            style={{ cursor: "pointer", marginTop: "5rem" }}
-            variant="outlined"
-          >
-            Add product
-          </Button>
-        </Link>
       </Box>
       <Box sx={{ maxWidth: "max-content", margin: "30px auto" }}>
         <Pagination

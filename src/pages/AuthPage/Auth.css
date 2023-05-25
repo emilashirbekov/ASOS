@@ -126,3 +126,13 @@ input {
 ::-webkit-input-placeholder {
   font-size: 1.4rem;
 }
+
+input[type="text"] {
+  font-size: 1.6rem;
+}
+input[type="email"] {
+  font-size: 1.6rem;
+}
+input[type="password"] {
+  font-size: 1.6rem;
+}

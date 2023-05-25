@@ -1,7 +1,9 @@
 import React, { useState } from "react";
-import "./Auth.css";
 import { useAuth } from "../../contexts/AuthContextProvider";
 import { useNavigate } from "react-router-dom";
+import { notify, notifyAlert, notifyError } from "../../components/Toastify";
+
+import "./Auth.css";
 const Auth = () => {
   const [state, setState] = useState(true);
   const [email, setEmail] = useState("");
@@ -61,8 +63,9 @@ const Auth = () => {
         <form
           action=""
           onSubmit={(e) => {
+            e.preventDefault();
             if (!email || !password || !firstName || !lastName) {
-              alert("заполните все поля");
+              notifyAlert("Fill the filds");
             } else {
               handleSubmit(e);
             }
@@ -141,7 +144,17 @@ const Auth = () => {
     return (
       <div className="main">
         <div className="SignIn">
-          <form action="" onSubmit={handleSubmit}>
+          <form
+            action=""
+            onSubmit={(e) => {
+              e.preventDefault();
+              if (!email || !password) {
+                notifyAlert("Fill the filds");
+              } else {
+                handleSubmit(e);
+              }
+            }}
+          >
             <h4 className="Register__title">EMAIL ADRESS :</h4>
             <input
               type="email"

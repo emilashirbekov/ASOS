@@ -12,7 +12,6 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import { useState } from "react";
 import { useThings } from "../../contexts/BagContextProvider";
-import { notify, notifyAlert } from "../../components/Toastify";
 import ProductionQuantityLimitsIcon from "@mui/icons-material/ProductionQuantityLimits";
 
 const ExpandMore = styled((props) => {
@@ -148,8 +147,8 @@ const Favourites = () => {
                     id={thing.id}
                     onClick={() => {
                       if (
-                        thing.id == size.id &&
-                        size.razmer.charAt(size.razmer.length - 1) != "0"
+                        thing.id === size.id &&
+                        size.razmer.charAt(size.razmer.length - 1) !== "0"
                       ) {
                         let obj = JSON.stringify(thing);
                         obj = JSON.parse(obj);
@@ -164,7 +163,7 @@ const Favourites = () => {
                       }
                     }}
                     sx={
-                      thing.id == size.id && lastChar != 0
+                      thing.id === size.id && lastChar !== 0
                         ? {
                             backgroundColor: "black",
                             marginTop: "20px",

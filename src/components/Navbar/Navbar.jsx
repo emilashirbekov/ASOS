@@ -154,8 +154,13 @@ function Navbar() {
                 </IconButton>
               </Tooltip>
             ) : (
-              <Button component={Link} to={"/auth"} color="inherit">
-                move to Login
+              <Button
+                sx={{ fontSize: "1.6rem" }}
+                component={Link}
+                to={"/auth"}
+                color="inherit"
+              >
+                JOIN
               </Button>
             )}
             <Menu
@@ -179,7 +184,7 @@ function Navbar() {
                   key={setting}
                   onClick={(e) => {
                     handleCloseUserMenu(e);
-                    if (setting == "Logout") {
+                    if (setting === "Logout") {
                       logout();
                     }
                   }}
