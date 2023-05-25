@@ -121,9 +121,19 @@ const ProductContextProvider = ({ children }) => {
     }
   };
 
+  const addReviews = (id, productData) => {
+    try {
+      const productRef = addDoc(productsCollectionRef, productData);
+      return productRef;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   let values = {
     products: state.products,
     oneProduct: state.oneProduct,
+    addReviews,
     addProduct,
     getProducts,
     deleteProduct,

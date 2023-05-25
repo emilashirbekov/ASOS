@@ -1,15 +1,35 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useAuth } from "../../contexts/AuthContextProvider";
 import { useNavigate } from "react-router-dom";
 import { notify, notifyAlert, notifyError } from "../../components/Toastify";
-
+import axios from "axios";
 import "./Auth.css";
+import { useThings } from "../../contexts/BagContextProvider";
+import { API } from "../../helpers/const";
+
 const Auth = () => {
   const [state, setState] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastNAme] = useState("");
+  const [bank, setBank] = useState();
+
+  async function getDataFromServer() {
+    try {
+      const response = await axios.get(API);
+      const res = response.data;
+      setBank(res);
+    } catch (error) {
+      notifyError(error);
+    }
+  }
+
+  useEffect(() => {
+    getDataFromServer();
+  }, []);
+
+  const { addBankInfo } = useThings();
 
   const navigate = useNavigate();
 
@@ -25,9 +45,40 @@ const Auth = () => {
     };
     if (state) {
       REGISTER(user);
+      let userObj = {
+        email: email,
+        money: Math.round(Math.random() * (1000 - 100) + 100),
+      };
+      let das = true;
+      for (let i = 0; i < bank.length; i++) {
+        if (bank[i].email == userObj.email) {
+          das = false;
+        }
+      }
+      if (das) {
+        addBankInfo(userObj);
+      }
+
+      navigate("/");
+      localStorage.setItem("userobj", JSON.stringify(userObj));
     } else {
       LOGIN(user);
+      let userObj = {
+        email: email,
+        money: Math.round(Math.random() * (1000 - 100) + 100),
+      };
+      let das = true;
+      for (let i = 0; i < bank.length; i++) {
+        if (bank[i].email == userObj.email) {
+          das = false;
+        }
+      }
+      if (das) {
+        addBankInfo(userObj);
+      }
+
       navigate("/");
+      localStorage.setItem("userobj", JSON.stringify(userObj));
     }
   };
   const register = () => {

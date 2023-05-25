@@ -8,7 +8,7 @@ import HomePage from "../pages/HomePage";
 import AddProductPage from "../pages/AddProductPage/AddproductPage";
 import BagPage from "../pages/BagPage/BagPage";
 import AuthPage from "../pages/AuthPage/AuthPage";
-import Reviews from "../components/Reviews/Reviews";
+import Reviews from "../pages/Reviews/Reviews";
 
 const MainRoutes = () => {
   return (

@@ -1,4 +1,4 @@
-export const LIMIT = 8;
+export const LIMIT = 4;
 
 export const ACTIONS = {
   products: "products",
@@ -10,6 +10,8 @@ export const ACTIONS = {
   Things: "things",
   ThingsLength: " thingsLength",
 };
+
+export const API = "http://localhost:8000/userBank";
 
 export function totalSumFunc(products) {
   let data = products.reduce((acc, item) => acc + item.subPrice, 0);

@@ -35,7 +35,12 @@ const ProductItem = ({ item }) => {
       {isAlreadyThings(item.id) ? null : (
         <Card className="card">
           <div className="image-container">
-            <CardMedia component="img" alt="Clothes" image={image} />
+            <CardMedia
+              sx={{ maxHeight: 300 }}
+              component="img"
+              alt="Clothes"
+              image={image}
+            />
             <div className="icon-container">
               {isAlreadyCart(item.id) ? (
                 <IconButton
@@ -82,7 +87,7 @@ const ProductItem = ({ item }) => {
               variant="body2"
               color="text.secondary"
             >
-              {price}
+              ${price}
             </Typography>
             <IconButton
               aria-label="Add to cart"

@@ -1,0 +1,19 @@
+{
+  "userBank": [
+    {
+      "email": "aaaaa@gmail.com",
+      "money": 344,
+      "id": 1
+    },
+    {
+      "email": "emkaashirbekov7910@gmail.com",
+      "money": 332,
+      "id": 2
+    },
+    {
+      "email": "ash@gmail.com",
+      "money": 631,
+      "id": 3
+    }
+  ]
+}

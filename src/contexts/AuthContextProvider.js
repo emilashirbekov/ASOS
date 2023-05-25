@@ -1,4 +1,10 @@
-import React, { createContext, useContext, useEffect, useReducer } from "react";
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useReducer,
+  useState,
+} from "react";
 import { ACTIONS } from "../helpers/const";
 import { auth } from "../firebase";
 import {
@@ -52,6 +58,7 @@ const AuthContextProvider = ({ children }) => {
   async function logout() {
     try {
       await signOut(auth);
+      localStorage.removeItem("userobj");
     } catch (error) {
       console.log(error);
     }
@@ -66,11 +73,22 @@ const AuthContextProvider = ({ children }) => {
     });
   }, []);
 
+  const [money, setMoney] = useState({ email: "", money: 0 });
+
+  function getDataLocalSt() {
+    const userObjString = localStorage.getItem("userobj");
+    if (userObjString) {
+      setMoney(JSON.parse(userObjString));
+    }
+  }
+
   let values = {
     user: state.user,
     REGISTER,
     LOGIN,
     logout,
+    getDataLocalSt,
+    money,
   };
 
   return <authContext.Provider value={values}>{children}</authContext.Provider>;
